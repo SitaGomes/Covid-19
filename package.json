@@ -4,7 +4,8 @@
   "description": "Desafio da Mobilus",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon backend/server.js"
   },
   "repository": {
     "type": "git",
@@ -15,8 +16,16 @@
     "ReactJS",
     "Firebase",
     "Axios",
-    "Typescript"
+    "Typescript",
+    "Javascript",
+    "Nodemon",
+    "Express"
   ],
   "author": "Arthur Gomes",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12"
+  }
 }
