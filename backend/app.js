@@ -1,12 +1,11 @@
 const express = require('express')
-const Routes = require('./routes')
 const MonthsRoute = require('./sixMonthsRoute')
-
+const WeeksRoute = require('./twoWeeksRoute')
 
 const app = express()
 
-app.use(Routes)
 app.use(MonthsRoute)
+app.use(WeeksRoute)
 
 
 module.exports = app

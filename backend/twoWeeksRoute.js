@@ -1,8 +1,8 @@
 const axios = require('axios')
-const express = require('express');
+const express = require('express')
 
 const routes = express.Router()
-const date = new Date();
+const date = new Date()
 
 //? Getting current date and previus date
 const currentDate = {
@@ -22,10 +22,10 @@ const reduceDate = (days, months, years) => {
     return value;    
 }
 
-const previousDate = reduceDate(0, -6, 0)
+const previousDate = reduceDate(-14, 0, 0)
 
 
-routes.get('/cases/months', async (req, res) => {
+routes.get('/cases/weeks', async (req, res) => {
     try{
 
         //? Axios request
