@@ -1,0 +1,22 @@
+{
+  "name": "mobilus",
+  "version": "1.0.0",
+  "description": "Desafio da Mobilus",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SitaGomes"
+  },
+  "keywords": [
+    "NodeJs",
+    "ReactJS",
+    "Firebase",
+    "Axios",
+    "Typescript"
+  ],
+  "author": "Arthur Gomes",
+  "license": "MIT"
+}
