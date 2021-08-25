@@ -23,10 +23,6 @@ export const Global = createGlobalStyle`
         transition: background 300ms ease-in, color 700ms ease-out;
     }
 
-    .tittle{
-        font-family: 'Roboto', sans-serif;
-    }
-
     .icon{
         width: 20px;
     }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import HeroImage from "Assets/SVG/HeroImage.svg";
 
-export const HomeContainer = styled.main`
+export const HomeContainer = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

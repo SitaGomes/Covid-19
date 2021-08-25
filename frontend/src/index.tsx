@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {Home} from 'Pages/Home/index';
-import {Global} from 'Styles/Global'
 import {ThemeContextProvider as ThemeProvider} from "Context/ThemeContext"
+
+import {Global} from 'Styles/Global'
+import {Home} from 'Pages/Home/index';
+import {MMM} from 'Pages/MediaMovelMortes';
+import {Gap} from 'Components/Gap'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -10,6 +13,8 @@ ReactDOM.render(
       <>
         <Global />
         <Home />
+        <Gap />
+        <MMM />
       </>
     </ThemeProvider>
   </React.StrictMode>,
