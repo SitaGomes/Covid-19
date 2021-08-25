@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Div = styled.div`
-    width: 30px;
+    width: 25px;
 `
 
 export function ArrowDown() {

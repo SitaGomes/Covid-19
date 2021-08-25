@@ -66,7 +66,7 @@ export function Home() {
         </div>
       </MenuContainer>
 
-      {/* Média Móvel de Mortes and Arrow Down */}
+      {/* Arrow Down */}
       <DropDown>
         <h2>
           Covid no Brasil

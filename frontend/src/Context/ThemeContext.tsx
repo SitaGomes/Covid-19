@@ -17,7 +17,7 @@ export function ThemeContextProvider ({children}: ChildrenProps) {
     const ToogleTheme = useCallback(() => {
         setToogleTheme(theme.tittle === "light" ? dark : light)
 
-    }, [theme]) 
+    }, [theme, setToogleTheme]) 
     
 
     return(
