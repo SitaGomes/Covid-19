@@ -22,7 +22,7 @@ const reduceDate = (days, months, years) => {
     return value;    
 }
 
-const previousDate = reduceDate(-14, 0, 0)
+const previousDate = reduceDate(-15, 0, 0)
 
 
 routes.get('/cases/weeks', async (req, res) => {
