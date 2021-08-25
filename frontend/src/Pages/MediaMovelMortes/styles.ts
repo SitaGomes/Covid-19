@@ -10,5 +10,12 @@ export const Container = styled.main`
     padding: 0 30px;
 `
 
-export const Text = styled.p`
+export const WeeksDataContainer = styled.section`
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    padding: 30px;
+    gap: 30px;
+
 `
