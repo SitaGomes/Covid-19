@@ -4,6 +4,30 @@ export interface ChildrenProps {
     children: ReactNode
 }
 
+export interface WeeksDataProps {
+    index: string,
+    values: number,
+}
+
+export interface ResetWeeksDataProps {
+    first: number,
+    second: number,
+}
+
+export interface CovidContextProps {
+    sumOfFirstWeekDeaths: number,
+    sumOfSecondWeekDeaths: number,
+    firstWeekData: number[],
+    secondWeekData: number[],
+    mediaMovelMortes: MMMProps, 
+    resetWeekData: ResetWeeksDataProps,
+}
+
+export interface MMMProps {
+    firstResult: number,
+    secondResult: number,
+}
+
 export interface ThemeProps {
     ToogleTheme(): void,
     theme: {
@@ -17,46 +41,6 @@ export interface ThemeProps {
 }
 
 export interface CovidProps {
-    ID: string,
     Deaths: number,
-    Confirmed: number,
-    Recovered: number,
-    Active: number,
-    Date: string,
 }
 
-export interface ResetWeekProps {
-    firstWeek: number,
-    secondWeek: number,
-}
-
-export interface WeekProps {
-    first: {
-        number: number;
-        date: string;
-    },
-    second: {
-        number: number;
-        date: string;
-    },
-    third: {
-        number: number;
-        date: string;
-    },
-    fourth: {
-        number: number;
-        date: string;
-    },
-    fifth: {
-        number: number;
-        date: string;
-    },
-    sixth: {
-        number: number;
-        date: string;
-    },
-    seventh: {
-        number: number;
-        date: string;
-    },
-}

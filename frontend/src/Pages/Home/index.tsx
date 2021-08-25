@@ -69,7 +69,7 @@ export function Home() {
       {/* Arrow Down */}
       <DropDown>
         <h2>
-          Covid no Brasil
+          Corona Vírus no Brasil
         </h2>
         <ArrowDown />
       </DropDown>
