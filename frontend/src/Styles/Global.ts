@@ -1,8 +1,14 @@
 import {createGlobalStyle} from "styled-components"
 
 export const Global = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Quicksand&family=Roboto:wght@700&display=swap');
-    
+
+    :root {
+        --main-color: #DC2F02;
+        --background-color: ${props => props.theme.colors.background};
+        --text-color: ${props => props.theme.colors.text};
+    }
+
+
     *{
         padding: 0;
         margin: 0;
@@ -11,11 +17,17 @@ export const Global = createGlobalStyle`
     }
 
     body{
+        background: var(--background-color);
+        color: var(--text-color);
         font-family: 'Quicksand', sans-serif;
+        transition: background 300ms ease-in, color 700ms ease-out;
     }
 
     .tittle{
         font-family: 'Roboto', sans-serif;
     }
 
+    .icon{
+        width: 20px;
+    }
 `
