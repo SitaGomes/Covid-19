@@ -1,22 +1,58 @@
+import { useEffect, useState } from 'react'
+
+import { Times } from 'Components/Times'
 import { Tittle } from 'Components/Tittle'
 import { FirstWeekData } from 'Components/WeeksData/FirstWeekData'
 import { SecondWeekData } from 'Components/WeeksData/SecondWeekData'
+import { Menu } from 'Components/DesktopMenu'
+
 import { useCovidContext } from 'Hooks/useCovidContext'
+import { useGetMonth } from 'Hooks/useGetMonth'
+
+import { WeekNumberProps } from 'Types'
 
 import {
+    Comparition,
     Container, 
+    SecondStepContainer, 
+    StyledExample, 
     WeeksDataContainer
 } from './styles'
 
 
 export function MMM () {
-
+    const [weekNumber, setWeekNumber] = useState({} as WeekNumberProps)
     const {
         firstWeekData, 
+        sumOfFirstWeekDeaths,
+        sumOfSecondWeekDeaths,
+        mediaMovelMortes
     } = useCovidContext()
+    
+    const month = useGetMonth()
+
+    
+    useEffect(() => {
+        const date = new Date()
+        
+        const reduceDays = (days: number,) => {
+            const day = date.getDate() + days 
+            
+            return day;    
+        }
+        
+        setWeekNumber({
+            firstWeek: `${reduceDays(-14)} - ${reduceDays(-8)}`,
+            secondWeek: `${reduceDays(-7)} - ${reduceDays(-1)}`,
+        })
+        
+    }, [])
+
 
     return(
         <Container>
+            <Menu />
+
             {/* Média Móvel de Mortes */}
             <Tittle>
                 Média Móvel de Mortes
@@ -40,6 +76,10 @@ export function MMM () {
 
             <WeeksDataContainer>
                 <div>
+                    <h2>
+                        {weekNumber.firstWeek} de {month}
+                    </h2>
+
                     {/* First Week Example */}
                     {Object.entries(firstWeekData).map((values) => {
                         return(
@@ -57,6 +97,11 @@ export function MMM () {
                 
 
                 <div>
+
+                    <h2>
+                        {weekNumber.secondWeek} de {month}
+                    </h2>
+
                     {/* Second Week Example */}
                     {Object.entries(firstWeekData).map((values) => {
                         return(
@@ -75,13 +120,35 @@ export function MMM () {
             </WeeksDataContainer>
 
             {/* Second Step */}
-            <div></div>
+            <p>
+               <strong>Segundo Passo:</strong> Divida o valor total por 7
+            </p>
 
-            {/* Second Example */}
-            <div></div>
+            {/* Second Step Example */}
+            <SecondStepContainer>
+                {/* First Week example */}
+                <StyledExample>
+                    {sumOfFirstWeekDeaths} / 7 = {mediaMovelMortes.firstResult} Mortes
+                </StyledExample>
+
+                {/* Second Week Example */}
+                <StyledExample>
+                    {sumOfSecondWeekDeaths} / 7 = {mediaMovelMortes.secondResult} Mortes
+                </StyledExample>
+            </SecondStepContainer>
 
             {/* Comparition */}
-            <div></div>
+            <Comparition>
+                <StyledExample>
+                    {mediaMovelMortes.firstResult}
+                </StyledExample>
+
+                <Times />
+
+                <StyledExample>
+                    {mediaMovelMortes.secondResult}
+                </StyledExample>
+            </Comparition>
             
         </Container>
     )

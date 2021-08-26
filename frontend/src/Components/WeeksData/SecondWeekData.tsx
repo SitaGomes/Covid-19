@@ -1,15 +1,8 @@
 import { useCovidContext } from "Hooks/useCovidContext";
 import { WeeksDataProps } from "Types";
 import styled from "styled-components";
+import {StyledExample} from "Pages/MediaMovelMortes/styles"
 
-const Div = styled.div`
-    background-color: ${props => props.theme.tittle === "dark" ? "#F9F9F9" : "#1F1F1F"};
-    color: ${props => props.theme.tittle === "dark" ? "#1F1F1F" : "#F9F9F9"};
-    
-    padding: 0 10px;
-
-    border-radius: 10px;
-`
 const Total = styled.h3`
     padding: 13px 5px 5px 5px;
 `
@@ -41,7 +34,7 @@ export function SecondWeekData({index, values}: WeeksDataProps) {
     validate();
 
     return(
-        <Div>
+        <StyledExample>
             {Index > 7 ? (
                 <SecondWeek>
                     <div>
@@ -57,6 +50,6 @@ export function SecondWeekData({index, values}: WeeksDataProps) {
                 </SecondWeek>
 
             ) : (<></>)}
-        </Div>
+        </StyledExample>
     )
 }

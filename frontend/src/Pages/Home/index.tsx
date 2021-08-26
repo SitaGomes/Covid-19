@@ -1,78 +1,93 @@
-import Swicth from "react-switch";
-import {Logo} from "Components/Logo"
-import {MoonSVG} from "Components/Moon"
-import {SunSVG} from "Components/Sun"
+import { useEffect, useState } from "react";
+import { useHistory} from "react-router-dom"
+import { database } from "Service/Database";
+
+import { ArrowDown } from "Components/ArrowDown";
+import { Menu } from "Components/DesktopMenu"
 
 import { 
   DropDown,
   HomeContainer, 
-  MenuContainer 
 } from "./styles";
-import { ArrowDown } from "Components/ArrowDown";
 
-import { useThemeContext } from "Hooks/useThemeContext";
+
+import {BiggestDataProps, CovidProps, DatabaseProps} from "Types"
+
+const axios = require('axios')
 
 export function Home() {
 
-  const {ToogleTheme, theme} = useThemeContext()
+  const [biggestNumberOfDeaths, setBiggestNumberOfDeaths] = useState(0 as number)
+  const [biggestNumberOfCases, setBiggestNumberOfCases] = useState(0 as number)
+  
+  const history = useHistory()
+
+  //! API call
+  useEffect(() => {
+
+    const options = {
+      method: 'get',
+      url: 'http://localhost:3003/cases/months/one'
+    }
+
+    const getOneMonth = async () => {
+      const res = await axios(options)
+      const {data} = res
+      const {cases} = data
+
+      const CasesLenght = cases.length
+
+      const allData: BiggestDataProps = {
+        numberOfDeaths: 0,
+        numberOfCases: 0,
+      }
+
+      const mapCases = (covid: CovidProps, index: number) => {
+
+        if (index === 0) {
+          allData.numberOfCases = covid.Confirmed
+          allData.numberOfDeaths = covid.Deaths
+        }
+
+        if (covid.Deaths > allData.numberOfDeaths) {
+          allData.numberOfDeaths = covid.Deaths
+        }
+
+        if (covid.Confirmed > allData.numberOfCases) {
+          allData.numberOfCases = covid.Confirmed
+        }
+        
+        if (index === CasesLenght - 1) {
+          setBiggestNumberOfDeaths(allData.numberOfDeaths)
+          setBiggestNumberOfCases(allData.numberOfCases)
+        }
+      }
+      cases.forEach(mapCases)
+    }
+    
+    getOneMonth()
+  })
+
+ 
+    //! Database post
+    const  GoToMMM = async () => {
+      
+      const organizedData: DatabaseProps = {
+        Covid: {
+          Cases: biggestNumberOfCases,
+          Deaths: biggestNumberOfDeaths,
+        }
+      }
+
+      history.push("/mmm")
+    }
+
 
   return (
     <HomeContainer>
+      
       {/* Menu */}
-      <MenuContainer>
-        <Logo />
-
-        {/* Theme Switch */}
-        <div>
-          <Swicth 
-            onChange={ToogleTheme}
-            checked={theme.tittle === "light"}
-            checkedIcon={
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  fontSize: 15,
-                  color: `${theme.colors.background}`,
-                  paddingRight: 2
-                }}
-              >
-                <SunSVG />
-              </div>
-            }
-            uncheckedIcon={
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  height: "100%",
-                  fontSize: 15,
-                  color: "white",
-                  paddingRight: 2
-                }}
-              >
-                <MoonSVG />
-              </div>
-            }
-            offColor={theme.colors.icon}
-            onColor={theme.colors.icon}
-            height={30}
-            width={60}
-            handleDiameter={35}
-          />
-        </div>
-      </MenuContainer>
-
-      {/* Arrow Down */}
-      <DropDown>
-        <h2>
-          Corona Vírus no Brasil
-        </h2>
-        <ArrowDown />
-      </DropDown>
+      <Menu />
 
     </HomeContainer>
   );
