@@ -10,30 +10,24 @@ export const HomeContainer = styled.section`
     background-image: url(${HeroImage});
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 110vh;
+    background-size: 130vh;
 
 `
 
-export const MenuContainer = styled.nav`
-    max-width: 1000px;
-    width: 100%; 
-    
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-
-    padding: 30px ;
-`
-
-export const DropDown = styled.div`
+export const DropDown = styled.button`
     display: flex;
     flex-direction: column;
     align-items: center;
 
+    cursor: pointer;
     padding: 20px 0;
-
+    
     gap: 5px;
+
+    color: ${props => props.theme.colors.text};
+
+    border: none;
+    background: none;
 `
 
 
