@@ -40,7 +40,24 @@ export interface ThemeProps {
     },
 }
 
-export interface CovidProps {
-    Deaths: number,
+export interface WeekNumberProps {
+    firstWeek: string,
+    secondWeek: string,
 }
 
+export interface CovidProps {
+    Deaths: number,
+    Confirmed: number,
+}
+
+export interface BiggestDataProps {
+    numberOfDeaths: number,
+    numberOfCases: number
+}
+
+export interface DatabaseProps {
+    Covid: {
+        Deaths: number,
+        Cases: number
+    }
+}
