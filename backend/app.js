@@ -1,13 +1,15 @@
 const express = require('express')
 const cors = require('cors')
 
-const MonthsRoute = require('./sixMonthsRoute')
+const sixMonthsRoute = require('./sixMonthsRoute')
 const WeeksRoute = require('./twoWeeksRoute')
+const oneMonthRoute = require('./oneMonthRoute')
 
 const app = express()
 
 app.use(cors())
-app.use(MonthsRoute)
+app.use(oneMonthRoute)
+app.use(sixMonthsRoute)
 app.use(WeeksRoute)
 
 
