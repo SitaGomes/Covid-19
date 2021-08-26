@@ -19,3 +19,31 @@ export const WeeksDataContainer = styled.section`
     gap: 30px;
 
 `
+
+export const SecondStepContainer = styled.section`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    margin: 10px;
+    gap: 10px;
+`
+
+export const StyledExample = styled.div`
+    background-color: ${props => props.theme.tittle === "dark" ? "#F9F9F9" : "#1F1F1F"};
+    color: ${props => props.theme.tittle === "dark" ? "#1F1F1F" : "#F9F9F9"};
+    
+    padding: 0 10px;
+
+    border-radius: 10px;
+`
+
+export const Comparition = styled.section`
+    display: flex;
+    align-items: center;
+    
+    margin-top: 1rem;
+    
+    gap: 10px;
+`
