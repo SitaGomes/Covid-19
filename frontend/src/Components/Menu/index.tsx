@@ -43,7 +43,6 @@ const ContentContainer = styled.div`
     
     display: flex;
     flex-direction: column;
-    justify-content: stretch;
 
     text-align: center;
 
@@ -61,13 +60,13 @@ const MenuContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
-    margin-top: 10px; 
 `
 
 const MenuLinks = styled.a`
     cursor: pointer;
     transition: ease-in-out 0.4s;
+    margin-top: 20px;
+
 
     :hover {
         color: var(--main-color);
@@ -124,14 +123,14 @@ export function Menu () {
                         onClick={() => history.push("/mmm")}
                         className="cursor-pointer"
                     >
-                        <Tittle>Média Móvel de Mortes</Tittle>
+                        <h2>Média Móvel de Mortes</h2>
                     </MenuLinks>
 
                     <MenuLinks
                         onClick={() => history.push("/")}
                         className="cursor-pointer"
                     >
-                        <Tittle>Home</Tittle>
+                        <h2>Home</h2>
                     </MenuLinks>
 
                 </MenuContent>

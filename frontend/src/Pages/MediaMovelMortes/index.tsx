@@ -4,12 +4,15 @@ import { Times } from 'Components/Times'
 import { Tittle } from 'Components/Tittle'
 import { FirstWeekData } from 'Components/WeeksData/FirstWeekData'
 import { SecondWeekData } from 'Components/WeeksData/SecondWeekData'
-import { Menu } from 'Components/DesktopMenu'
+import { Menu } from 'Components/Menu'
 
+import { useOneMonthContext } from 'Hooks/useOneMonthContext'
 import { useCovidContext } from 'Hooks/useCovidContext'
 import { useGetMonth } from 'Hooks/useGetMonth'
 
-import { WeekNumberProps } from 'Types'
+import { DatabaseProps, WeekNumberProps } from 'Types'
+
+import {database} from 'Service/Database'
 
 import {
     Comparition,
@@ -28,11 +31,31 @@ export function MMM () {
         sumOfSecondWeekDeaths,
         mediaMovelMortes
     } = useCovidContext()
+
+    const {
+        biggestNumberOfCases,
+        biggestNumberOfDeaths,
+        todaysDate,
+        todaysTime
+    } = useOneMonthContext()
     
     const month = useGetMonth()
 
+
+    const organizedData: DatabaseProps = {
+        Covid: {
+            Deaths: biggestNumberOfDeaths,
+            Cases: biggestNumberOfCases,
+        },
+        User: {
+            Date: `${todaysDate.year}:${todaysDate.month}:${todaysDate.day}`,
+            Time: `${todaysTime.hour}:${todaysTime.minutes}:${todaysTime.seconds}`,
+        }
+
+    }
     
     useEffect(() => {
+
         const date = new Date()
         
         const reduceDays = (days: number,) => {
@@ -45,9 +68,18 @@ export function MMM () {
             firstWeek: `${reduceDays(-14)} - ${reduceDays(-8)}`,
             secondWeek: `${reduceDays(-7)} - ${reduceDays(-1)}`,
         })
+
+        const DatabasePush = async () => {
+            try {
+                await database.ref('Data').push(organizedData)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        DatabasePush()
         
     }, [])
-
 
     return(
         <Container>

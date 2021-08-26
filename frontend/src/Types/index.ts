@@ -51,13 +51,32 @@ export interface CovidProps {
 }
 
 export interface BiggestDataProps {
-    numberOfDeaths: number,
-    numberOfCases: number
+    ofDeaths: number,
+    ofCases: number
 }
 
 export interface DatabaseProps {
     Covid: {
         Deaths: number,
         Cases: number
+    },
+    User: {
+        Date: string,
+        Time: string,
+    }
+}
+
+export interface MonthContextProps {
+    biggestNumberOfDeaths: number,
+    biggestNumberOfCases: number,
+    todaysDate: {
+        year: number,
+        month: number,
+        day: number,
+    }
+    todaysTime: {
+        hour: number,
+        minutes: number,
+        seconds: number
     }
 }
