@@ -5,14 +5,13 @@ import { useThemeContext } from "Hooks/useThemeContext";
 
 import styled from "styled-components"
 
-import { Tittle } from "Components/Tittle";
 import { BarsIcon } from "Components/Bars";
 import {Logo} from "Components/Logo"
 import { Times } from "Components/Times";
 
 import { useHistory} from "react-router-dom"
 
-const MenuContainer = styled.nav`
+const MenuContainer = styled.header`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -23,14 +22,22 @@ const MenuContainer = styled.nav`
     padding: 50px 30px;
 
     margin: 0 auto;
+
+    @media only screen and (max-width: 430px) {
+        flex-direction: column;
+        justify-content: center;
+
+        padding: 20px;
+        gap: 20px;
+    }
 `
 const Bars = styled.button`
-    background: none;
+    background: transparent;
     border: none;
     cursor: pointer;
 `
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.nav`
     position: fixed;
     left: 0;
     height: 100vh;
@@ -67,9 +74,31 @@ const MenuLinks = styled.a`
     transition: ease-in-out 0.4s;
     margin-top: 20px;
 
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    padding: calc(1rem / 2) 1rem;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.7rem;
+`
 
-    :hover {
-        color: var(--main-color);
+const H2 = styled.h2`
+    ::after{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 1rem;
+        right: 1rem;
+        height: 1px;
+        background: var(--main-color);
+        transform: scaleX(0);
+        transition: transform 350ms ease-in-out;
+    }
+
+    :hover:after {
+        transform: scaleX(1);
     }
 `
 
@@ -118,19 +147,19 @@ export function Menu () {
                 </MenuHeader>
 
                 <MenuContent>
+                    
+                    <MenuLinks
+                        onClick={() => history.push("/")}
+                        className="cursor-pointer"
+                    >
+                        <H2>Home</H2>
+                    </MenuLinks>
 
                     <MenuLinks
                         onClick={() => history.push("/mmm")}
                         className="cursor-pointer"
                     >
-                        <h2>Média Móvel de Mortes</h2>
-                    </MenuLinks>
-
-                    <MenuLinks
-                        onClick={() => history.push("/")}
-                        className="cursor-pointer"
-                    >
-                        <h2>Home</h2>
+                        <H2>Média Móvel de Mortes</H2>
                     </MenuLinks>
 
                 </MenuContent>

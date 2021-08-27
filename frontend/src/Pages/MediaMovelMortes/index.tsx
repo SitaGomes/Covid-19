@@ -17,6 +17,7 @@ import {database} from 'Service/Database'
 import {
     Comparition,
     Container, 
+    ExampleTittle, 
     SecondStepContainer, 
     StyledExample, 
     WeeksDataContainer
@@ -26,7 +27,7 @@ import {
 export function MMM () {
     const [weekNumber, setWeekNumber] = useState({} as WeekNumberProps)
     const {
-        firstWeekData, 
+        allWeeksDataOfDeaths,
         sumOfFirstWeekDeaths,
         sumOfSecondWeekDeaths,
         mediaMovelMortes
@@ -36,13 +37,14 @@ export function MMM () {
         biggestNumberOfCases,
         biggestNumberOfDeaths,
         todaysDate,
-        todaysTime
+        todaysTime,
+        userLatitude,
+        userLongitude
     } = useOneMonthContext()
     
     const month = useGetMonth()
-
-
-    const organizedData: DatabaseProps = {
+    
+    const organizedDatabaseContent: DatabaseProps = {
         Covid: {
             Deaths: biggestNumberOfDeaths,
             Cases: biggestNumberOfCases,
@@ -50,11 +52,17 @@ export function MMM () {
         User: {
             Date: `${todaysDate.year}:${todaysDate.month}:${todaysDate.day}`,
             Time: `${todaysTime.hour}:${todaysTime.minutes}:${todaysTime.seconds}`,
+            Location: {
+                lat: userLatitude ? userLatitude : 0, //! if location is block, lat: 0
+                lon: userLongitude ? userLongitude : 0,
+            }
         }
 
     }
     
+    
     useEffect(() => {
+        
 
         const date = new Date()
         
@@ -71,7 +79,7 @@ export function MMM () {
 
         const DatabasePush = async () => {
             try {
-                await database.ref('Data').push(organizedData)
+                //await database.ref('Data').push(organizedDatabaseContent)
             } catch (error) {
                 console.log(error)
             }
@@ -113,7 +121,7 @@ export function MMM () {
                     </h2>
 
                     {/* First Week Example */}
-                    {Object.entries(firstWeekData).map((values) => {
+                    {Object.entries(allWeeksDataOfDeaths).map((values) => {
                         return(
                             <div
                                 key={values[0]}
@@ -135,7 +143,7 @@ export function MMM () {
                     </h2>
 
                     {/* Second Week Example */}
-                    {Object.entries(firstWeekData).map((values) => {
+                    {Object.entries(allWeeksDataOfDeaths).map((values) => {
                         return(
                             <div
                                 key={values[0]}
@@ -169,15 +177,31 @@ export function MMM () {
                 </StyledExample>
             </SecondStepContainer>
 
+            <Tittle>
+                Resultado:
+            </Tittle>
+
             {/* Comparition */}
             <Comparition>
+
                 <StyledExample>
+
+                    <ExampleTittle>
+                        Média Móvel de Mortes de {weekNumber.firstWeek} de {month}
+                    </ExampleTittle>
+
                     {mediaMovelMortes.firstResult}
+
                 </StyledExample>
 
                 <Times />
 
                 <StyledExample>
+
+                    <ExampleTittle>
+                        Média Móvel de Mortes de {weekNumber.secondWeek} de {month}
+                    </ExampleTittle>
+
                     {mediaMovelMortes.secondResult}
                 </StyledExample>
             </Comparition>
