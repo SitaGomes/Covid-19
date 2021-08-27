@@ -35,6 +35,7 @@ export const CovidProtection = styled.section`
     padding: 0 30px;
 
     height: 100vh;
+
 `
 
 export const TextDescription = styled.h3`
@@ -73,5 +74,6 @@ export const CleanHandsContainer = styled.section`
 
     @media only screen and (max-width: 859px){
         justify-content: center;
+        flex-direction: column-reverse;
     }
 `

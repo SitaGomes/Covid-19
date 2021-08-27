@@ -1,3 +1,4 @@
+import { useHistory} from "react-router-dom"
 import { useState } from "react";
 import Swicth from "react-switch";
 
@@ -9,7 +10,6 @@ import { BarsIcon } from "Components/Bars";
 import {Logo} from "Components/Logo"
 import { Times } from "Components/Times";
 
-import { useHistory} from "react-router-dom"
 
 const MenuContainer = styled.header`
     display: flex;
@@ -110,9 +110,11 @@ export function Menu () {
 
     const history = useHistory()
 
+
     return(
         <>
-            <MenuContainer>
+            <MenuContainer
+            >
                 <Logo />
 
                 <Bars

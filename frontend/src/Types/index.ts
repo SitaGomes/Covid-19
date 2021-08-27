@@ -1,7 +1,8 @@
 import { ReactNode } from "react";
 
 export interface ChildrenProps {
-    children: ReactNode
+    children: ReactNode,
+    style?: object,
 }
 
 export interface WeeksDataProps {

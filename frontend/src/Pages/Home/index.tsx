@@ -3,6 +3,10 @@ import { Gap } from "Components/Gap";
 import { Tittle } from "Components/Tittle";
 import {SocialDistance} from "Components/SocialDistance";
 import {CleanHands} from "Components/CleanHands";
+import { Footer } from "Components/Footer";
+import { ArrowDown } from "Components/ArrowDown";
+
+import AOS from 'aos';
 
 import { 
   HeroContainer,
@@ -12,9 +16,11 @@ import {
   TextDescription,
   CleanHandsContainer
 } from "./styles";
-import { Footer } from "Components/Footer";
+
 
 export function Home() {
+
+  AOS.init()
 
   return (
     <>
@@ -23,8 +29,15 @@ export function Home() {
         {/* Menu */}
         <Menu />
 
-        <DropDown>
-          Corona Vírus no Brasil
+        <DropDown
+        >
+          
+          <h2>
+            Corona Vírus no Brasil
+          </h2>
+
+          <ArrowDown />
+
         </DropDown>
         
       </HeroContainer>
@@ -33,14 +46,16 @@ export function Home() {
 
       <CovidProtection>
 
-        <Tittle>
-          Se Proteja, para proteger os outros!
-        </Tittle>
+        <div data-aos="fade-up">
+          <Tittle>
+            Se Proteja, para proteger os outros!
+          </Tittle>
+        </div>
 
         <Gap />
 
         {/* Section */}
-        <SocialDistanceContainer>
+        <SocialDistanceContainer data-aos="fade-right">
 
           <SocialDistance />
 
@@ -53,13 +68,13 @@ export function Home() {
         <Gap />
 
         {/* Section */}
-        <CleanHandsContainer>
-
-          <CleanHands />
+        <CleanHandsContainer data-aos="fade-right">
 
           <TextDescription>
             Lave suas mãos sempre que possível.
           </TextDescription>
+          
+          <CleanHands />
 
         </CleanHandsContainer>
 
