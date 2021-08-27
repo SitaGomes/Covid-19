@@ -14,20 +14,17 @@ export const HomeContainer = styled.section`
 
 `
 
-export const DropDown = styled.button`
+export const DropDown = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
 
-    cursor: pointer;
     padding: 20px 0;
     
     gap: 5px;
 
     color: ${props => props.theme.colors.text};
 
-    border: none;
-    background: none;
 `
 
 

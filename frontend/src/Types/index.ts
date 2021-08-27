@@ -17,8 +17,7 @@ export interface ResetWeeksDataProps {
 export interface CovidContextProps {
     sumOfFirstWeekDeaths: number,
     sumOfSecondWeekDeaths: number,
-    firstWeekData: number[],
-    secondWeekData: number[],
+    allWeeksDataOfDeaths: number[],
     mediaMovelMortes: MMMProps, 
     resetWeekData: ResetWeeksDataProps,
 }
@@ -63,12 +62,18 @@ export interface DatabaseProps {
     User: {
         Date: string,
         Time: string,
+        Location: {
+            lat: number,
+            lon: number
+        }
     }
 }
 
 export interface MonthContextProps {
     biggestNumberOfDeaths: number,
     biggestNumberOfCases: number,
+    userLatitude: number,
+    userLongitude: number,
     todaysDate: {
         year: number,
         month: number,

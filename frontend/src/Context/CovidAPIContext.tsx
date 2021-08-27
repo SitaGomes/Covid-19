@@ -8,8 +8,7 @@ const axios = require('axios')
 export function CovidAPIContext ({children}: ChildrenProps) {
 
 
-    const [firstWeekData, setFirstWeekData] = useState([] as number[])
-    const [secondWeekData, setSecondWeekData] = useState([] as number[])
+    const [allWeeksDataOfDeaths, setAllWeeksDataOfDeaths] = useState([] as number[])
 
     const [sumOfFirstWeekDeaths, setSumOfFirstWeekDeaths] = useState(0)
     const [sumOfSecondWeekDeaths, setSumOfSecondWeekDeaths] = useState(0)
@@ -28,48 +27,50 @@ export function CovidAPIContext ({children}: ChildrenProps) {
         const getTwoWeeksData = async () => {
             const {data} = await axios(options)
             const {cases} = data
+
+            const casesLength = cases.length
             
             const Reset = {
                 firstWeek: 0,
                 secondWeek: 0,
             }
 
-            const allFirstWeekDeaths: number[] = []
-            const allSecondWeekDeaths: number[] = []
+            const allWeeksDeaths: number[] = []
 
             let sum1 = 0
             let sum2 = 0
 
 
             const mapCases = (covid: CovidProps, index: number) => {
-
+                
                 if (index === 0) {
                     Reset.firstWeek = covid.Deaths
                 }
-
+                
                 if (index === 7) {
                     Reset.secondWeek = covid.Deaths
                 }
+                
+                if (index > 0 && index < casesLength){
+                    allWeeksDeaths[index] = covid.Deaths
+                }
 
                 if (index > 0 && index < 8){
-                    allFirstWeekDeaths[index] = covid.Deaths
                     sum1 += covid.Deaths
                 }
                 
                 if (index > 7 && index < 15) {
-                    allFirstWeekDeaths[index] = covid.Deaths
                     sum2 += covid.Deaths
                 }
                 
                 
-                if (index === 14) {
+                if (index === casesLength - 1) {
 
                     setSumOfFirstWeekDeaths(sum1 - (Reset.firstWeek * 7))
                     setSumOfSecondWeekDeaths(sum2 - (Reset.secondWeek * 7))
                     
                     setResetWeekData({ first: Reset.firstWeek, second: Reset.secondWeek })
-                    setFirstWeekData(allFirstWeekDeaths)
-                    setSecondWeekData(allSecondWeekDeaths)
+                    setAllWeeksDataOfDeaths(allWeeksDeaths)
                     
                 }
                 
@@ -88,7 +89,7 @@ export function CovidAPIContext ({children}: ChildrenProps) {
     
 
     return(
-        <CovidContext.Provider value={{resetWeekData, mediaMovelMortes, firstWeekData, secondWeekData, sumOfFirstWeekDeaths, sumOfSecondWeekDeaths}}>
+        <CovidContext.Provider value={{resetWeekData, mediaMovelMortes, allWeeksDataOfDeaths,  sumOfFirstWeekDeaths, sumOfSecondWeekDeaths}}>
             {children}
         </CovidContext.Provider>
     )

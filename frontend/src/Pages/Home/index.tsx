@@ -1,7 +1,8 @@
 import { Menu } from "Components/Menu"
 
 import { 
-  HomeContainer, 
+  HomeContainer,
+  DropDown
 } from "./styles";
 
 export function Home() {
@@ -12,6 +13,10 @@ export function Home() {
       {/* Menu */}
       <Menu />
 
+      <DropDown>
+        Corona Vírus no Brasil
+      </DropDown>
+      
     </HomeContainer>
   );
 }
