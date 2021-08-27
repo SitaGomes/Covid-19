@@ -2,6 +2,8 @@ import styled from "styled-components"
 import { ChildrenProps } from "Types";
 
 const H1 = styled.h1`
+    text-align: center;
+
     font-family: "roboto", sans-serif;
     padding-top: 1.2rem;
 `

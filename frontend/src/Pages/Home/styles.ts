@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import HeroImage from "Assets/SVG/HeroImage.svg";
 
-export const HomeContainer = styled.section`
+export const HeroContainer = styled.main`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -27,4 +27,51 @@ export const DropDown = styled.div`
 
 `
 
+export const CovidProtection = styled.section`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding: 0 30px;
 
+    height: 100vh;
+`
+
+export const TextDescription = styled.h3`
+    max-width: 300px;
+    width: 100%;
+
+    text-align: center;
+`
+
+
+export const SocialDistanceContainer = styled.section`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    max-width: 1000px;
+    width: 100%;
+
+    @media only screen and (max-width: 859px){
+        justify-content: center;
+    }
+`
+
+
+export const CleanHandsContainer = styled.section`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 50px;
+
+    max-width: 1000px;
+    width: 100%;
+
+    @media only screen and (max-width: 859px){
+        justify-content: center;
+    }
+`
