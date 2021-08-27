@@ -1,4 +1,5 @@
 import {createGlobalStyle} from "styled-components"
+import 'aos/dist/aos.css'
 
 export const Global = createGlobalStyle`
 
@@ -9,18 +10,18 @@ export const Global = createGlobalStyle`
     }
 
 
-    *{
+    *, ::before, ::after{
+        box-sizing: border-box;
         padding: 0;
         margin: 0;
         outline: none;
-        box-sizing: border-box;
+        transition: background 500ms ease-in, color 300ms ease-out;
     }
 
     body{
         background: var(--background-color);
         color: var(--text-color);
         font-family: 'Quicksand', sans-serif;
-        transition: background 500ms ease-in, color 300ms ease-out;
     }
 
     .icon{
@@ -38,10 +39,6 @@ export const Global = createGlobalStyle`
     .closed{
         width: 0;
         opacity: 0;
-    }
-
-    .cursor-pointer{
-        cursor: pointer;
     }
 
 `

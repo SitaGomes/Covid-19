@@ -17,7 +17,6 @@ import {database} from 'Service/Database'
 import {
     Comparition,
     Container, 
-    ExampleTittle, 
     SecondStepContainer, 
     StyledExample, 
     WeeksDataContainer
@@ -25,7 +24,9 @@ import {
 
 
 export function MMM () {
+
     const [weekNumber, setWeekNumber] = useState({} as WeekNumberProps)
+
     const {
         allWeeksDataOfDeaths,
         sumOfFirstWeekDeaths,
@@ -88,6 +89,7 @@ export function MMM () {
         DatabasePush()
         
     }, [])
+
 
     return(
         <Container>
@@ -186,11 +188,11 @@ export function MMM () {
 
                 <StyledExample>
 
-                    <ExampleTittle>
-                        Média Móvel de Mortes de {weekNumber.firstWeek} de {month}
-                    </ExampleTittle>
+                    
 
-                    {mediaMovelMortes.firstResult}
+                    <h2>
+                        {mediaMovelMortes.firstResult}
+                    </h2>
 
                 </StyledExample>
 
@@ -198,12 +200,14 @@ export function MMM () {
 
                 <StyledExample>
 
-                    <ExampleTittle>
-                        Média Móvel de Mortes de {weekNumber.secondWeek} de {month}
-                    </ExampleTittle>
+                   
 
-                    {mediaMovelMortes.secondResult}
+                    <h2>
+                        {mediaMovelMortes.secondResult}
+                    </h2>
+
                 </StyledExample>
+
             </Comparition>
             
         </Container>
