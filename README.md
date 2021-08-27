@@ -30,32 +30,32 @@
 ## :computer: Instalation
 
 ```bash
-// First clone the repository
+# First clone the repository
 $ git clone http://github.com/SitaGomes/WeatherCast
 
-// Them go to the project folder
+# Them go to the project folder
 $ cd Mobilus
 
 
 
-// In the back-end
+# In the back-end
 $ cd backend
 
-// Install back-end dependencies
+# Install all back-end dependencies
 $ npm i
 
-// Turn the server on
+# Turn the server on
 npm run server
 
 
 
-// In the front-end
+# In the front-end
 $ cd frontend
 
-// Install front-end dependencies
+# Install all front-end dependencies
 $ npm i
 
-// Start the site
+# Start the site
 $ npm start
 
 ```
