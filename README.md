@@ -34,15 +34,26 @@
 $ git clone http://github.com/SitaGomes/WeatherCast
 
 // Them go to the project folder
-$ cd WeatherCast
+$ cd Mobilus
 
-// Install all the dependencies
-$ npm install
+// In the back-end
+$ cd backend
+
+// Install back-end dependencies
+$ npm i
 
 // Turn the server on
 npm run server
 
-// Run the project
+
+
+// In the front-end
+$ cd frontend
+
+// Install front-end dependencies
+$ npm i
+
+// Start the site
 $ npm start
 
 ```
