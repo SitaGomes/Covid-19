@@ -5,6 +5,9 @@ import { Tittle } from 'Components/Tittle'
 import { FirstWeekData } from 'Components/WeeksData/FirstWeekData'
 import { SecondWeekData } from 'Components/WeeksData/SecondWeekData'
 import { Menu } from 'Components/Menu'
+import {LoadingFirstStep} from 'Components/LoadingFirstStep'
+import { LoadingSecondStep} from 'Components/LoadingSecondStep'
+import { LoadingResult } from 'Components/LoadingResult'
 
 import { useOneMonthContext } from 'Hooks/useOneMonthContext'
 import { useCovidContext } from 'Hooks/useCovidContext'
@@ -22,6 +25,10 @@ import {
     WeeksDataContainer
 } from './styles'
 
+import { FadeDownTrail } from 'Styles/Animations/FadeUpTrail'
+import {FadeLeft} from "Styles/Animations/FadeLeft"
+import {FadeRight} from "Styles/Animations/FadeRight"
+import { Fade } from 'Styles/Animations/Fade'
 
 export function MMM () {
 
@@ -29,9 +36,9 @@ export function MMM () {
 
     const {
         allWeeksDataOfDeaths,
-        sumOfFirstWeekDeaths,
-        sumOfSecondWeekDeaths,
-        mediaMovelMortes
+        sumOfAllWeeksDeaths,
+        mediaMovelMortes,
+        loadingAPI
     } = useCovidContext()
 
     const {
@@ -45,24 +52,24 @@ export function MMM () {
     
     const month = useGetMonth()
     
-    const organizedDatabaseContent: DatabaseProps = {
-        Covid: {
-            Deaths: biggestNumberOfDeaths,
-            Cases: biggestNumberOfCases,
-        },
-        User: {
-            Date: `${todaysDate.year}:${todaysDate.month}:${todaysDate.day}`,
-            Time: `${todaysTime.hour}:${todaysTime.minutes}:${todaysTime.seconds}`,
-            Location: {
-                lat: userLatitude ? userLatitude : 0, //! if location is block, lat: 0
-                lon: userLongitude ? userLongitude : 0,
-            }
-        }
-
-    }
-    
     
     useEffect(() => {
+        
+        const organizedDatabaseContent: DatabaseProps = {
+            Covid: {
+                Deaths: biggestNumberOfDeaths,
+                Cases: biggestNumberOfCases,
+            },
+            User: {
+                Date: `${todaysDate.year}:${todaysDate.month}:${todaysDate.day}`,
+                Time: `${todaysTime.hour}:${todaysTime.minutes}:${todaysTime.seconds}`,
+                Location: {
+                    lat: userLatitude ? userLatitude : 0, //! if location is block, lat: 0
+                    lon: userLongitude ? userLongitude : 0,
+                }
+            }
+    
+        }
         
 
         const date = new Date()
@@ -80,7 +87,7 @@ export function MMM () {
 
         const DatabasePush = async () => {
             try {
-                //await database.ref('Data').push(organizedDatabaseContent)
+                await database.ref('Data').push(organizedDatabaseContent)
             } catch (error) {
                 console.log(error)
             }
@@ -88,127 +95,167 @@ export function MMM () {
 
         DatabasePush()
         
-    }, [])
+    }, [biggestNumberOfCases, biggestNumberOfDeaths, todaysDate, todaysTime, userLatitude, userLongitude])
 
 
     return(
         <Container>
             <Menu />
 
-            {/* Média Móvel de Mortes */}
-            <Tittle>
-                Média Móvel de Mortes
-            </Tittle>
+            <FadeDownTrail>
 
-            {/* What's the meaning */}
-            <p>
-                É uma média feita para entender a velocidade com que a doença (COVID-19) está avançando, 
-                levando em conta as oscilações entre dias de semana e fins de semana.
-            </p>
+                <div >
+                    {/* Média Móvel de Mortes */}
+                    <Tittle>
+                        Média Móvel de Mortes
+                    </Tittle>
+                </div>
 
-            {/* How to calculate */}
-            <Tittle>
-                Como Calcular?
-            </Tittle>
+                {/* What's the meaning */}
+                <p >
+                    É uma média feita para entender a velocidade com que a doença (COVID-19) está avançando, 
+                    levando em conta as oscilações entre dias de semana e fins de semana.
+                </p>
 
-            {/* First Step */}
-            <p>
-                <strong>Primeiro Passo:</strong> Some o total de mortes durante 7 dias (1 semana)
-            </p>
 
-            <WeeksDataContainer>
                 <div>
-                    <h2>
-                        {weekNumber.firstWeek} de {month}
-                    </h2>
-
-                    {/* First Week Example */}
-                    {Object.entries(allWeeksDataOfDeaths).map((values) => {
-                        return(
-                            <div
-                                key={values[0]}
-                            >
-                                <FirstWeekData 
-                                    index={values[0]}
-                                    values={values[1]}
-                                />
-                            </div>
-                        )
-                    })}
+                    {/* How to calculate */}
+                    <Tittle>
+                        Como Calcular?
+                    </Tittle>
                 </div>
                 
+                {/* First Step */}
+                <p>
+                    <strong>Primeiro Passo:</strong> Some o total de mortes durante 7 dias (1 semana)
+                </p>
 
-                <div>
+            </FadeDownTrail>
 
-                    <h2>
-                        {weekNumber.secondWeek} de {month}
-                    </h2>
+            {loadingAPI ? <LoadingFirstStep /> : (
 
-                    {/* Second Week Example */}
-                    {Object.entries(allWeeksDataOfDeaths).map((values) => {
-                        return(
-                            <div
-                                key={values[0]}
-                            >
-                                <SecondWeekData 
-                                    index={values[0]}
-                                    values={values[1]}
-                                />
-                            </div>
-                        )
-                    })}
-                </div>
-
-            </WeeksDataContainer>
-
-            {/* Second Step */}
-            <p>
-               <strong>Segundo Passo:</strong> Divida o valor total por 7
-            </p>
-
-            {/* Second Step Example */}
-            <SecondStepContainer>
-                {/* First Week example */}
-                <StyledExample>
-                    {sumOfFirstWeekDeaths} / 7 = {mediaMovelMortes.firstResult} Mortes
-                </StyledExample>
-
-                {/* Second Week Example */}
-                <StyledExample>
-                    {sumOfSecondWeekDeaths} / 7 = {mediaMovelMortes.secondResult} Mortes
-                </StyledExample>
-            </SecondStepContainer>
-
-            <Tittle>
-                Resultado:
-            </Tittle>
-
-            {/* Comparition */}
-            <Comparition>
-
-                <StyledExample>
-
+                <WeeksDataContainer>
                     
+                    <FadeLeft>
+                        <div>
+                            <h2>
+                                {weekNumber.firstWeek} de {month}
+                            </h2>
 
-                    <h2>
-                        {mediaMovelMortes.firstResult}
-                    </h2>
+                            {/* First Week Example */}
+                            {Object.entries(allWeeksDataOfDeaths).map((values) => {
+                                return(
+                                    <div
+                                        key={values[0]}
+                                    >
+                                        <FirstWeekData 
+                                            index={values[0]}
+                                            values={values[1]}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </FadeLeft>
+                    
+                    <FadeRight>
+                        <div>
 
-                </StyledExample>
+                            <h2>
+                                {weekNumber.secondWeek} de {month}
+                            </h2>
 
-                <Times />
+                            {/* Second Week Example */}
+                            {Object.entries(allWeeksDataOfDeaths).map((values) => {
+                                return(
+                                    <div
+                                        key={values[0]}
+                                    >
+                                        <SecondWeekData 
+                                            index={values[0]}
+                                            values={values[1]}
+                                        />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </FadeRight>
 
-                <StyledExample>
 
-                   
+                </WeeksDataContainer>
 
-                    <h2>
-                        {mediaMovelMortes.secondResult}
-                    </h2>
+            )}
+            
+            <Fade>
+                {/* Second Step */}
+                <p>
+                    <strong>Segundo Passo:</strong> Divida o valor total por 7
+                </p>
+            </Fade>
 
-                </StyledExample>
+            {loadingAPI ? <LoadingSecondStep /> : (
+                
+                <>     
+                    {/* Second Step Example */}
+                    <SecondStepContainer>
 
-            </Comparition>
+                        <FadeLeft>
+                            {/* First Week example */}
+                            <StyledExample>
+                                {sumOfAllWeeksDeaths.firstWeek} / 7 = {mediaMovelMortes.firstResult} Mortes
+                            </StyledExample>
+                        </FadeLeft>
+
+                        <FadeRight>
+                            {/* Second Week Example */}
+                            <StyledExample>
+                                {sumOfAllWeeksDeaths.secondWeek} / 7 = {mediaMovelMortes.secondResult} Mortes
+                            </StyledExample>
+                        </FadeRight>
+
+                    </SecondStepContainer>
+                </>
+
+            )}
+
+            <Fade>
+                <Tittle>
+                    Resultado:
+                </Tittle>
+            </Fade>
+
+            {loadingAPI ? <LoadingResult /> : (
+
+                <Comparition>
+
+                    <FadeLeft>
+                        <StyledExample>
+
+                            <h2>
+                                {mediaMovelMortes.firstResult}
+                            </h2>
+
+                        </StyledExample>
+                    </FadeLeft>
+
+                    <Fade>
+                        <Times />
+                    </Fade>
+
+                    <FadeRight>
+                        <StyledExample>
+                        
+                            <h2>
+                                {mediaMovelMortes.secondResult}
+                            </h2>
+
+                        </StyledExample>
+                    </FadeRight>
+
+                </Comparition>
+
+            )}
+            {/* Comparition */}
             
         </Container>
     )

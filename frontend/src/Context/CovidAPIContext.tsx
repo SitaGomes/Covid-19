@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { ChildrenProps, CovidContextProps, CovidProps, MMMProps, ResetWeeksDataProps } from "Types";
+import { ChildrenProps, CovidContextProps, CovidProps, MMMProps, ResetWeeksDataProps, AllWeeksDeathsProps } from "Types";
 
 export const CovidContext = createContext({} as CovidContextProps)
 
@@ -10,13 +10,13 @@ export function CovidAPIContext ({children}: ChildrenProps) {
 
     const [allWeeksDataOfDeaths, setAllWeeksDataOfDeaths] = useState([] as number[])
 
-    const [sumOfFirstWeekDeaths, setSumOfFirstWeekDeaths] = useState(0)
-    const [sumOfSecondWeekDeaths, setSumOfSecondWeekDeaths] = useState(0)
+    const [sumOfAllWeeksDeaths, setSumOfAllWeeksDeaths] = useState({} as AllWeeksDeathsProps)
 
     const [mediaMovelMortes, setMediaMovelMortes] = useState({} as MMMProps)
 
     const [resetWeekData, setResetWeekData] = useState({} as ResetWeeksDataProps)
 
+    const [loadingAPI, setLoadingAPI] = useState(true)
 
     useEffect(() => {
         const options = {
@@ -66,9 +66,10 @@ export function CovidAPIContext ({children}: ChildrenProps) {
                 
                 if (index === casesLength - 1) {
 
-                    setSumOfFirstWeekDeaths(sum1 - (Reset.firstWeek * 7))
-                    setSumOfSecondWeekDeaths(sum2 - (Reset.secondWeek * 7))
-                    
+                    setSumOfAllWeeksDeaths({
+                        firstWeek: sum1 - (Reset.firstWeek * 7),
+                        secondWeek: sum2 - (Reset.secondWeek * 7),
+                    })
                     setResetWeekData({ first: Reset.firstWeek, second: Reset.secondWeek })
                     setAllWeeksDataOfDeaths(allWeeksDeaths)
                     
@@ -77,19 +78,26 @@ export function CovidAPIContext ({children}: ChildrenProps) {
             }
             
             setMediaMovelMortes({
-                firstResult: Math.floor(sumOfFirstWeekDeaths / 7),
-                secondResult: Math.floor(sumOfSecondWeekDeaths / 7),
+                firstResult: Math.floor(sumOfAllWeeksDeaths.firstWeek / 7),
+                secondResult: Math.floor(sumOfAllWeeksDeaths.secondWeek / 7),
             })
             
             cases.forEach(mapCases)
         }
         
+        if (sumOfAllWeeksDeaths && mediaMovelMortes && allWeeksDataOfDeaths) {
+            setLoadingAPI(false)
+        }
+
+
         getTwoWeeksData()
-    }, [sumOfFirstWeekDeaths, sumOfSecondWeekDeaths,])
+    }, [])
+
+   
     
 
     return(
-        <CovidContext.Provider value={{resetWeekData, mediaMovelMortes, allWeeksDataOfDeaths,  sumOfFirstWeekDeaths, sumOfSecondWeekDeaths}}>
+        <CovidContext.Provider value={{resetWeekData, mediaMovelMortes, allWeeksDataOfDeaths, sumOfAllWeeksDeaths, loadingAPI }}>
             {children}
         </CovidContext.Provider>
     )

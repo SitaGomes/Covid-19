@@ -15,7 +15,7 @@ export const Global = createGlobalStyle`
         padding: 0;
         margin: 0;
         outline: none;
-        transition: background 500ms ease-in, color 300ms ease-out;
+        transition: background 500ms ease-in, color 200ms ease-out;
     }
 
     body{
