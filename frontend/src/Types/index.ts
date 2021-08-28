@@ -16,8 +16,8 @@ export interface ResetWeeksDataProps {
 }
 
 export interface CovidContextProps {
-    sumOfFirstWeekDeaths: number,
-    sumOfSecondWeekDeaths: number,
+    loadingAPI: boolean,
+    sumOfAllWeeksDeaths: AllWeeksDeathsProps,
     allWeeksDataOfDeaths: number[],
     mediaMovelMortes: MMMProps, 
     resetWeekData: ResetWeeksDataProps,
@@ -39,6 +39,12 @@ export interface ThemeProps {
         }
     },
 }
+
+export interface AllWeeksDeathsProps {
+    firstWeek: number,
+    secondWeek: number,
+}
+
 
 export interface WeekNumberProps {
     firstWeek: string,

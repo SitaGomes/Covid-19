@@ -13,7 +13,7 @@ const SecondWeek = styled.div`
 
 export function SecondWeekData({index, values}: WeeksDataProps) {
 
-    const {resetWeekData, sumOfSecondWeekDeaths} = useCovidContext()
+    const {resetWeekData, sumOfAllWeeksDeaths} = useCovidContext()
 
     const Index = Number(index)
 
@@ -44,7 +44,7 @@ export function SecondWeekData({index, values}: WeeksDataProps) {
 
                     {Index === 14 ? (
                         <Total>
-                            <strong>TOTAL: {sumOfSecondWeekDeaths} Mortes </strong>
+                            <strong>TOTAL: {sumOfAllWeeksDeaths.secondWeek} Mortes </strong>
                         </Total>
                     ): (<></>)}
                 </SecondWeek>

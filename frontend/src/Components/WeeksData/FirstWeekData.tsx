@@ -1,5 +1,7 @@
 import { useCovidContext } from "Hooks/useCovidContext";
+
 import { WeeksDataProps } from "Types";
+
 import styled from "styled-components";
 import { StyledExample } from "Pages/MediaMovelMortes/styles";
 
@@ -14,7 +16,7 @@ const FirstWeek = styled.div`
 
 export function FirstWeekData({index, values}: WeeksDataProps) {
 
-    const {resetWeekData, sumOfFirstWeekDeaths} = useCovidContext()
+    const {resetWeekData, sumOfAllWeeksDeaths} = useCovidContext()
 
     const Index = Number(index)
 
@@ -44,7 +46,7 @@ export function FirstWeekData({index, values}: WeeksDataProps) {
 
                     {Index === 7 ? (
                         <Total>
-                            <strong>TOTAL: {sumOfFirstWeekDeaths} Mortes </strong>
+                            <strong>TOTAL: {sumOfAllWeeksDeaths.firstWeek} Mortes </strong>
                         </Total>
                     ): (<></>)}
 
