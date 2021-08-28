@@ -15,6 +15,7 @@ const Div = styled(a.div)`
 
     display: flex;
     justify-content: center;
+
 `
 
 
