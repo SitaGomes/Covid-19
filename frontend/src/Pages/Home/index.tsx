@@ -17,6 +17,7 @@ import {
   CleanHandsContainer
 } from "./styles";
 
+import {FadeDownTrail} from 'Styles/Animations/FadeDownTrail'
 
 export function Home() {
 
@@ -24,23 +25,21 @@ export function Home() {
 
   return (
     <>
-      <HeroContainer>
+      <FadeDownTrail>
+        <HeroContainer>
         
-        {/* Menu */}
-        <Menu />
-
-        <DropDown
-        >
-          
-          <h2>
-            Corona Vírus no Brasil
-          </h2>
-
-          <ArrowDown />
-
-        </DropDown>
+            {/* Menu */}
+            <Menu />
+            <DropDown
+            >
+              <h2>
+                Corona Vírus no Brasil
+              </h2>
+              <ArrowDown />
+            </DropDown>
         
-      </HeroContainer>
+        </HeroContainer>
+      </FadeDownTrail>
 
       <Gap />
 

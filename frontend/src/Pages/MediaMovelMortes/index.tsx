@@ -25,7 +25,7 @@ import {
     WeeksDataContainer
 } from './styles'
 
-import { FadeDownTrail } from 'Styles/Animations/FadeUpTrail'
+import { FadeDownTrail } from 'Styles/Animations/FadeDownTrail'
 import {FadeLeft} from "Styles/Animations/FadeLeft"
 import {FadeRight} from "Styles/Animations/FadeRight"
 import { Fade } from 'Styles/Animations/Fade'

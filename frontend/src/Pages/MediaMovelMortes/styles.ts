@@ -43,7 +43,6 @@ export const Comparition = styled.section`
 
         flex-direction: column;
 
-
     }
 
 `
