@@ -4,10 +4,6 @@
 
 </div>
 
-<p align=center>
-    Tecnical challenge requested by Mobilus's development team. 
-</p>
-
 <p align="center">
  <a href="#camera-demonstration">Demonstration</a> •
  <a href="#electric_plug-technologies">Technologies</a> •
